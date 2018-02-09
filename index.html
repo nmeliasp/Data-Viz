@@ -50,7 +50,9 @@
           var x = myChart.addMeasureAxis("x", "height"); 
           	x.overrideMin = 60;
           	x.overrideMax = 90;
-          myChart.addMeasureAxis("y", "HR");
+          	x.title = "Player Height in Inches";
+          var y = myChart.addMeasureAxis("y", "HR");
+          	y.title = "Total Home Runs";
           myChart.addSeries(["name","handedness"], dimple.plot.bubble);
           //debugger;
           //var myLegend = myChart.addLegend(1275,100,330, 20, "left")
