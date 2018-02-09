@@ -4,6 +4,13 @@
   <meta charset="utf-8">
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script src="http://dimplejs.org/dist/dimple.v2.0.0.min.js"></script>
+  <style>
+  	circle {
+        opacity: 0.7;
+      }
+
+
+   </style>
     <script type="text/javascript">
       function draw(data) {
       
@@ -26,11 +33,13 @@
       /*
         Dimple.js Chart construction code
       */
-
+      		debugger;
           var myChart = new dimple.chart(svg, data);
-          var x = myChart.addTimeAxis("x", "year"); 
-          myChart.addMeasureAxis("y", "attendance");
-          myChart.addSeries(null, dimple.plot.bar);
+          var x = myChart.addMeasureAxis("x", "height"); 
+          	x.overrideMin = 60;
+          	x.overrideMax = 90;
+          myChart.addMeasureAxis("y", "HR");
+          myChart.addSeries(["name","handedness"], dimple.plot.bubble);
           myChart.draw();
         };
       </script>
@@ -38,10 +47,10 @@
 <body>
   <script type="text/javascript">
   /*
-    Use D3 (not dimple.js) to load the TSV file
+    Use D3 (not dimple.js) to load the CSV file
     and pass the contents of it to the draw function
     */
-  d3.tsv("world_cup.tsv", draw);
+  d3.csv("baseball_data.csv", draw);
   </script>
 </body>
 </html>
