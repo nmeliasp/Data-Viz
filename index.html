@@ -5,10 +5,13 @@
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script src="http://dimplejs.org/dist/dimple.v2.0.0.min.js"></script>
   <style>
-  	circle {
-        opacity: 0.7;
-      }
+  	circle.dimple-series-0{
+  		opacity: .4;
+  	}
 
+  	h2{
+  		text-align: center;
+  	}
 
    </style>
     <script type="text/javascript">
@@ -23,6 +26,10 @@
               width = 1400 - margin,
               height = 600 - margin;
 
+          d3.select('body')
+          	.append('h2')
+          	.text("Batter Characteristics");
+
           var svg = d3.select("body")
             .append("svg")
               .attr("width", width + margin)
@@ -33,14 +40,25 @@
       /*
         Dimple.js Chart construction code
       */
-      		debugger;
           var myChart = new dimple.chart(svg, data);
+          //myChart.setBounds(120,30,420,330);
+          myChart.defaultColors = [
+			new dimple.color("Blue", "Black", 1), // Set a red fill with a blue stroke
+			new dimple.color("Red",'Red', 1), // Set a green fill with a darker green stroke
+			new dimple.color("Orange", 'Orange',1) // Set a blue fill with a darker blue stroke
+			];
           var x = myChart.addMeasureAxis("x", "height"); 
           	x.overrideMin = 60;
           	x.overrideMax = 90;
           myChart.addMeasureAxis("y", "HR");
           myChart.addSeries(["name","handedness"], dimple.plot.bubble);
+          //debugger;
+          //var myLegend = myChart.addLegend(1275,100,330, 20, "left")
+          var myLegend = myChart.addLegend(1275, 100, 60, 300, "Right");
           myChart.draw();
+          myLegend.shapes.selectAll("text").style("font-size", "12px");
+          //myLegend.shapes.selectAll("g").attr("transform","translate(0,10)" );
+
         };
       </script>
   </head>
