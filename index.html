@@ -43,7 +43,7 @@
           var myChart = new dimple.chart(svg, data);
           //myChart.setBounds(120,30,420,330);
           myChart.defaultColors = [
-			new dimple.color("Blue", "Black", 1), // Set a red fill with a blue stroke
+			new dimple.color("lightblue", "Black", 1), // Set a red fill with a blue stroke
 			new dimple.color("Red",'Red', 1), // Set a green fill with a darker green stroke
 			new dimple.color("Orange", 'Orange',1) // Set a blue fill with a darker blue stroke
 			];
@@ -56,11 +56,49 @@
           myChart.addSeries(["name","handedness"], dimple.plot.bubble);
           //debugger;
           //var myLegend = myChart.addLegend(1275,100,330, 20, "left")
-          var myLegend = myChart.addLegend(1275, 100, 60, 300, "Right");
+          var myLegend = myChart.addLegend(1245, 60, 60, 1100, "Left");
           myChart.draw();
           myLegend.shapes.selectAll("text").style("font-size", "12px");
-          //myLegend.shapes.selectAll("g").attr("transform","translate(0,10)" );
 
+
+
+          myChart.legends = [];
+          
+          svg.selectAll("title_text")
+          	.data(["Click legend to","show/hide Battter Handedness:"])
+          	.enter()
+          	.append("text")
+            .attr("x", 1245)
+            .attr("y", function (d, i) { return 35 + i * 14; })
+            .style("font-family", "sans-serif")
+            .style("font-size", "11px")
+            .style("color", "Black")
+            .text(function (d) { return d; });
+
+            
+            var filterValues = dimple.getUniqueValues(data,"handedness");
+			myLegend.shapes.selectAll("rect")
+			.on("click", function (e) {
+            var hide = false;
+            var newFilters = [];
+            debugger;
+            filterValues.forEach(function (f) {
+              if (f === e.aggField[1]) {
+                hide = true;
+              } else {
+                newFilters.push(f);
+              }
+            });
+            if (hide) {
+              d3.select(this).style("opacity", 0.2);
+            } else {
+              newFilters.push(e.aggField[1]);
+              d3.select(this).style("opacity", 0.8);
+            }
+            filterValues = newFilters;
+            myChart.data = dimple.filterData(data, "handedness", filterValues);
+            myChart.draw(800);
+			});
         };
       </script>
   </head>
