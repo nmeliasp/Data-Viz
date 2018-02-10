@@ -24,16 +24,16 @@
       /*
         D3.js setup code
       */
-
+      	// set margin,width,height
           "use strict";
           var margin = 75,
               width = 1400 - margin,
               height = 850 - margin;
-
+          // add chart title
           d3.select('body')
           	.append('h2')
           	.text("Baseball Player Height vs Home Runs");
-
+          	// create SVG 
           var svg = d3.select("body")
             .append("svg")
               .attr("width", width + margin)
@@ -45,29 +45,37 @@
         Dimple.js Chart construction code
       */
           var myChart = new dimple.chart(svg, data);
-          //myChart.setBounds(120,30,420,330);
+          
           myChart.defaultColors = [
-			new dimple.color("lightblue", "Black", 1), // Set a red fill with a blue stroke
-			new dimple.color("Red",'Red', 1), // Set a green fill with a darker green stroke
-			new dimple.color("Orange", 'Orange',1) // Set a blue fill with a darker blue stroke
+			new dimple.color("lightblue", "Black", 1),
+			new dimple.color("Red",'Red', 1), // 
+			new dimple.color("Orange", 'Orange',1) 
 			];
+		// Create x and y axis and set axis limit. 	
           var x = myChart.addMeasureAxis("x", "height"); 
           	x.overrideMin = 60;
           	x.overrideMax = 90;
           	x.title = "Player Height in Inches";
           var y = myChart.addMeasureAxis("y", "HR");
           	y.title = "Total Home Runs (HR)";
-          myChart.addSeries(["name",'weight',"handedness"], dimple.plot.bubble);
-          //debugger;
-          //var myLegend = myChart.addLegend(1275,100,330, 20, "left")
+          
+          // add data and create bubble chart. Color by handedness
+          myChart.addSeries(["name",'weight','avg', "handedness" ], dimple.plot.bubble);
+          
+          //create legend
           var myLegend = myChart.addLegend(1260, 85, 60, 1100, "Left");
+          
+          // render chart
           myChart.draw();
-          myLegend.shapes.selectAll("text").style("font-size", "12px");
+          
+          // style legned. 
+          myLegend.shapes.selectAll("text").style("font-size", "11px");
 
 
-
+          // orphan legend to not respond to graph updates. 
           myChart.legends = [];
           
+          // add legend title and instructions how interact with the legend. 
           svg.selectAll("title_text")
           	.data(["Click legend to hide/unhide:\n","Right Handed Batters(R)\n", "Left Handed Batters(L)\n", "Both handed Batters(B)"])
           	.enter()
@@ -82,28 +90,36 @@
 
 
 
-            
+            // create filter list that will be used to update the graph. 
             var filterValues = dimple.getUniqueValues(data,"handedness");
+			
+
 			myLegend.shapes.selectAll("rect")
+			// create a click event to each lengend square
 			.on("click", function (e) {
             var hide = false;
             var newFilters = [];
-            debugger;
+           // check if the clicked square is in the filter and flag it to be hidden if it is. 
             filterValues.forEach(function (f) {
-              if (f === e.aggField[2]) {
+              if (f === e.aggField[3]) {
                 hide = true;
               } else {
                 newFilters.push(f);
               }
             });
+            // hide square if it is flagged in the filter list. If a square is not flagged, it will be shown. 
             if (hide) {
               d3.select(this).style("opacity", 0.2);
             } else {
-              newFilters.push(e.aggField[2]);
+              newFilters.push(e.aggField[3]);
               d3.select(this).style("opacity", 0.8);
             }
+            
+            // update filter list
             filterValues = newFilters;
+            // update chart data with the filtered data
             myChart.data = dimple.filterData(data, "handedness", filterValues);
+            // re-draw chart. 
             myChart.draw(800);
 			});
         };
@@ -112,7 +128,7 @@
 <body>
   <script type="text/javascript">
   /*
-    Use D3 (not dimple.js) to load the CSV file
+    Using D3  to load the CSV file
     and pass the contents of it to the draw function
     */
   d3.csv("baseball_data.csv", draw);
