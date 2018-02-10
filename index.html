@@ -13,6 +13,10 @@
   		text-align: center;
   	}
 
+	text.legend_text {
+    	text-align: center;
+    	color: red;
+	}
    </style>
     <script type="text/javascript">
       function draw(data) {
@@ -28,7 +32,7 @@
 
           d3.select('body')
           	.append('h2')
-          	.text("Player Height vs Home Runs");
+          	.text("Baseball Player Height vs Home Runs");
 
           var svg = d3.select("body")
             .append("svg")
@@ -52,11 +56,11 @@
           	x.overrideMax = 90;
           	x.title = "Player Height in Inches";
           var y = myChart.addMeasureAxis("y", "HR");
-          	y.title = "Total Home Runs";
-          myChart.addSeries(["name","handedness"], dimple.plot.bubble);
+          	y.title = "Total Home Runs (HR)";
+          myChart.addSeries(["name",'weight',"handedness"], dimple.plot.bubble);
           //debugger;
           //var myLegend = myChart.addLegend(1275,100,330, 20, "left")
-          var myLegend = myChart.addLegend(1245, 60, 60, 1100, "Left");
+          var myLegend = myChart.addLegend(1260, 85, 60, 1100, "Left");
           myChart.draw();
           myLegend.shapes.selectAll("text").style("font-size", "12px");
 
@@ -65,15 +69,18 @@
           myChart.legends = [];
           
           svg.selectAll("title_text")
-          	.data(["Click legend to","show/hide Battter Handedness:"])
+          	.data(["Click legend to hide/unhide:\n","Right Handed Batters(R)\n", "Left Handed Batters(L)\n", "Both handed Batters(B)"])
           	.enter()
           	.append("text")
+          	.attr('class', 'legend_text')
             .attr("x", 1245)
             .attr("y", function (d, i) { return 35 + i * 14; })
             .style("font-family", "sans-serif")
             .style("font-size", "11px")
-            .style("color", "Black")
+            .style("fill", "black")
             .text(function (d) { return d; });
+
+
 
             
             var filterValues = dimple.getUniqueValues(data,"handedness");
@@ -83,7 +90,7 @@
             var newFilters = [];
             debugger;
             filterValues.forEach(function (f) {
-              if (f === e.aggField[1]) {
+              if (f === e.aggField[2]) {
                 hide = true;
               } else {
                 newFilters.push(f);
@@ -92,7 +99,7 @@
             if (hide) {
               d3.select(this).style("opacity", 0.2);
             } else {
-              newFilters.push(e.aggField[1]);
+              newFilters.push(e.aggField[2]);
               d3.select(this).style("opacity", 0.8);
             }
             filterValues = newFilters;
