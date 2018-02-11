@@ -13,9 +13,9 @@
   		text-align: center;
   	}
 
-	text.legend_text {
-    	text-align: center;
-    	color: red;
+	.legend_text {
+    	text-align: right;
+    	fill: black;
 	}
    </style>
     <script type="text/javascript">
@@ -27,7 +27,7 @@
       	// set margin,width,height
           "use strict";
           var margin = 75,
-              width = 1400 - margin,
+              width = 1500 - margin,
               height = 850 - margin;
           // add chart title
           d3.select('body')
@@ -47,14 +47,14 @@
           var myChart = new dimple.chart(svg, data);
           
           myChart.defaultColors = [
-			new dimple.color("lightblue", "Black", 1),
+			new dimple.color("dodgerblue", "dodgerblue", 1),
 			new dimple.color("Red",'Red', 1), // 
-			new dimple.color("Orange", 'Orange',1) 
+			new dimple.color("yellow", 'yellow',1) 
 			];
 		// Create x and y axis and set axis limit. 	
           var x = myChart.addMeasureAxis("x", "height"); 
           	x.overrideMin = 60;
-          	x.overrideMax = 90;
+          	x.overrideMax = 85;
           	x.title = "Player Height in Inches";
           var y = myChart.addMeasureAxis("y", "HR");
           	y.title = "Total Home Runs (HR)";
@@ -63,7 +63,7 @@
           myChart.addSeries(["name",'weight','avg', "handedness" ], dimple.plot.bubble);
           
           //create legend
-          var myLegend = myChart.addLegend(1260, 85, 60, 1100, "Left");
+          var myLegend = myChart.addLegend(1260, 75, 150, 1100, "Left");
           
           // render chart
           myChart.draw();
@@ -81,11 +81,10 @@
           	.enter()
           	.append("text")
           	.attr('class', 'legend_text')
-            .attr("x", 1245)
-            .attr("y", function (d, i) { return 35 + i * 14; })
+            .attr("x", 1270)
+            .attr("y", function (d, i) { return 25 + i * 14; })
             .style("font-family", "sans-serif")
             .style("font-size", "11px")
-            .style("fill", "black")
             .text(function (d) { return d; });
 
 
