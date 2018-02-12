@@ -38,7 +38,11 @@ Several Iterations have been made to incorporate feedback that was given.
 * Iteration 5 - Responding to feedback from Reviewer # 3
 	* colouring updated to try and address viewers with color-blindness.
 	* moved legend above the chart and made it horizontal for easier viewing.
-
+* Iteration 6 - Additional Design changes and Animation additions
+	* Chart sizing and positioning improvements made
+	* Bar chart added to the right of the bar to encode how many players belong to each handedness category
+	* New animation added. Chart will begin by animating over each batter handedness. Ability to filter a player handedness was also added to bar chart. 
+	* New additions provide a Martini Glass Narrative structure. 
 
 ## Feedback:
   For anonymity purposes, I will use Reviewer # to document feedback I received from each individual who looked at my chart.  
