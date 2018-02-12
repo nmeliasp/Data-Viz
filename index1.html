@@ -18,36 +18,16 @@
     <script type="text/javascript">
       function draw(data) {
       
-      /*
-        D3.js setup code
-      */
-      	// set margin,width,height
-          //"use strict";
-          /*
-          var margin = 75,
-              width = 1500 - margin,
-              height = 850 - margin;
-           */
-
-          // add chart title
-
-          	// create SVG 
-		  
-          d3.select('body')
-          	.append('h2')
-          	.text("Baseball Player Height vs Home Runs");
-		          
-          var svg = dimple.newSvg("body", 1400, 800);
+      
+          // add chart title 
+        d3.select('body')
+          .append('h2')
+          .text("Baseball Player Height vs Home Runs");
+		
+		// create SVG          
+        var svg = dimple.newSvg("body", 1400, 800);
 
 
-          /*
-          var svg = d3.select("body")
-            .append("svg")
-            .attr("width", width + margin)
-            .attr("height", height + margin)
-            .append('g')
-            .attr('class','chart');
-		*/
 	// create indicator chart on the right of the main chart
 		var indicator = new dimple.chart(svg,data);
 		//debugger;
@@ -67,13 +47,16 @@
 		// use handedness scale for bar size
 		var x = indicator.addMeasureAxis('x', "name");
 		x.hidden = true;
-// Add the bars to the indicator and add event handlers
+		
+		// Add the bars to the indicator and add event handlers
         var s = indicator.addSeries(null, dimple.plot.bar);
         s.addEventHandler("click", onClick);
-          // Draw the side chart
+       
+       
         //debugger;
         indicator.draw();
-           // Remove the title from the y axis
+       
+       // Remove the title from the y axis
         y.titleShape.remove();
 
           // Remove the lines from the y axis
@@ -135,15 +118,16 @@
           //create legend
           var myLegend = myChart.addLegend(460,40,410,60);
 
+          // create story for animation
           var story = myChart.setStoryboard("handedness", onTick);
-          //story.autoplay = false;
-
+          
+          // set frame duration. 
           story.frameDuration = frame;
           
           // render chart
           myChart.draw();
           
-          // style legned and add legend description
+          // style color legned and add legend description
           myLegend.shapes.selectAll("text").style("font-size", "11px");
           svg.selectAll("legend_text")
                   .data(["Right Handed Batters(R)\n", "Left Handed Batters(L)\n", "Both Handed Batters(B)"])
@@ -166,10 +150,12 @@
          
          function onClick(e){
          	story.pauseAnimation();
-         	//debugger;
+         	// check if clicked bar is the current
          	if (e.yValue===story.getFrameValue()){
+         		// if yes, start animation
          		story.startAnimation();
          	} else {
+         		// else paush animation and go to clicked bar's frame. 
          		story.goToFrame(e.yValue);
          		story.pauseAnimation();
          	}
@@ -180,6 +166,7 @@
          	
          	if(!firstTick){
          		//debugger;
+         		//change indicator color as animation progresses over each frame. 
          		s.shapes.transition()
          				.duration(frame /2)
          				.style("fill", function (d) { return (d.y === e ? indicatorColor.fill : defaultColor.fill) })
