@@ -83,25 +83,25 @@ Several Iterations have been made to incorporate feedback that was given.
 	* People who have issues with color blindness may have difficulty telling the difference between the red dots and the other colors.
 	
  * Reviewer # 4:
-		* What do you notice in the visualization?
-		  Not knowing anything about the data source, i’m assuming this is a scattergram of individual observations. 
-		  The legend colors correspond to the handedness of the player, but it does not describe the shading. so, i interpret the color shading to be the density of occurrances at that coordinate.
+	* What do you notice in the visualization?
+	  Not knowing anything about the data source, i’m assuming this is a scattergram of individual observations. 
+	  The legend colors correspond to the handedness of the player, but it does not describe the shading. so, i interpret the color shading to be the density of occurrances at that coordinate.
 
-		* What questions do you have about the data?
-	      my main question about the data is why the height is represented as integer/discrete values, vs. real values. 
-		  Home Runs make sense as integers. Is it to emphasize the clustering of occurrences? perhaps real values are too diffuse to project trends?
+	* What questions do you have about the data?
+	  my main question about the data is why the height is represented as integer/discrete values, vs. real values. 
+	  Home Runs make sense as integers. Is it to emphasize the clustering of occurrences? perhaps real values are too diffuse to project trends?
 
-		* What relationships do you notice?
-		  conclusions i would reach:
-			* the distribution of height vs. home runs seems to fit a fairly normal distribution around a mean of 73.
-			* leftys seem to have a higher percentage of the top home run hitters.
-			* on average, rightys hit more home runs.				* obvioulsy significantly more rights than lefties.
+	* What relationships do you notice?
+	  conclusions i would reach:
+		* the distribution of height vs. home runs seems to fit a fairly normal distribution around a mean of 73.
+		* leftys seem to have a higher percentage of the top home run hitters.
+		* on average, rightys hit more home runs.				* obvioulsy significantly more rights than lefties.
 
-		* What do you think is the main takeaway from this visualization?
-		  demonstrate the effect of handedness and height on home run production.
+	* What do you think is the main takeaway from this visualization?
+	  demonstrate the effect of handedness and height on home run production.
 
-		* Is there something you don’t understand in the graphic?
-	      cool visualization.
+	* Is there something you don’t understand in the graphic?
+	  cool visualization.
 	
 	
 
