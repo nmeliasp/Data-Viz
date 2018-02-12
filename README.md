@@ -82,7 +82,7 @@ Several Iterations have been made to incorporate feedback that was given.
 
 	* People who have issues with color blindness may have difficulty telling the difference between the red dots and the other colors.
 	
-	* Reviewer # 3:
+ * Reviewer # 4:
 		* What do you notice in the visualization?
 		  Not knowing anything about the data source, i’m assuming this is a scattergram of individual observations. 
 		  The legend colors correspond to the handedness of the player, but it does not describe the shading. so, i interpret the color shading to be the density of occurrances at that coordinate.
