@@ -36,10 +36,10 @@
           	// create SVG 
           var svg = d3.select("body")
             .append("svg")
-              .attr("width", width + margin)
-              .attr("height", height + margin)
+            .attr("width", width + margin)
+            .attr("height", height + margin)
             .append('g')
-                .attr('class','chart');
+            .attr('class','chart');
 
       /*
         Dimple.js Chart construction code
@@ -56,6 +56,7 @@
           	x.overrideMin = 60;
           	x.overrideMax = 85;
           	x.title = "Player Height in Inches";
+          
           var y = myChart.addMeasureAxis("y", "HR");
           	y.title = "Total Home Runs (HR)";
           
@@ -98,6 +99,7 @@
 			.on("click", function (e) {
             var hide = false;
             var newFilters = [];
+           
            // check if the clicked square is in the filter and flag it to be hidden if it is. 
             filterValues.forEach(function (f) {
               if (f === e.aggField[3]) {
@@ -106,6 +108,7 @@
                 newFilters.push(f);
               }
             });
+            
             // hide square if it is flagged in the filter list. If a square is not flagged, it will be shown. 
             if (hide) {
               d3.select(this).style("opacity", 0.2);
@@ -116,8 +119,10 @@
             
             // update filter list
             filterValues = newFilters;
+            
             // update chart data with the filtered data
             myChart.data = dimple.filterData(data, "handedness", filterValues);
+            
             // re-draw chart. 
             myChart.draw(800);
 			});
