@@ -34,7 +34,10 @@ Several Iterations have been made to incorporate feedback that was given.
 * Iteration 4 - Responding to issue items 5-9
   * X-axis information was not showing up well in Firefox. Added some styling to fix this issue. Added HR to y-axis to clarify what HR means in the data. 
     Improved the description and directions how to interact with the color legend. 
-  
+
+* Iteration 5 - Responding to feedback from Reviewer # 3
+	* colouring updated to try and address viewers with color-blindness.
+	* moved legend above the chart and made it horizontal for easier viewing.
 
 
 ## Feedback:
