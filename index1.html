@@ -54,17 +54,19 @@
         var s = indicator.addSeries(null, dimple.plot.bar);
         s.addEventHandler("click", onClick);
        
-
+        // function to calculate average Home Runs by batter handedness
         function calc_HR_avg(data,filter_col,filter_val){
-        	
+        	// filter data by handedness column and value
         	var filtered_data = dimple.filterData(data, filter_col,filter_val);
+        	
+        	// extract values from HR column and convert to integers
         	var HomeRuns = []
         	filtered_data.map(function(d) {
         		temp = +d.HR
         		HomeRuns.push(temp);
         	});
 
-        		
+        	// calculate average	
         	var total = 0;
         	for (var i = 0; i< HomeRuns.length;i++){
         		total = total + HomeRuns[i];
@@ -120,77 +122,79 @@
       /*
         Dimple.js Chart construction code
       */
-          var myChart = new dimple.chart(svg, data);
-          myChart.setBounds(60,60,835,610);
+        var myChart = new dimple.chart(svg, data);
+        myChart.setBounds(60,60,835,610);
           
-          myChart.defaultColors = [
+        myChart.defaultColors = [
 			new dimple.color("dodgerblue", "dodgerblue", 1),
 			new dimple.color("Red",'Red', 1), // 
 			new dimple.color("yellow", 'yellow',1) 
 			];
 		// Create x and y axis and set axis limit. 	
-          var x = myChart.addMeasureAxis("x", "height"); 
-          	x.overrideMin = 60;
-          	x.overrideMax = 85;
-          	x.title = "Player Height in Inches";
+        var x = myChart.addMeasureAxis("x", "height"); 
+        x.overrideMin = 60;
+        x.overrideMax = 85;
+        x.title = "Player Height in Inches";
           
-          var y = myChart.addMeasureAxis("y", "HR");
-          	y.title = "Total Home Runs (HR)";
+        var y = myChart.addMeasureAxis("y", "HR");
+        y.title = "Total Home Runs (HR)";
           
-          // add data and create bubble chart. Color by handedness
-          myChart.addSeries(["name",'weight','avg', "handedness" ], dimple.plot.bubble);
+        // add data and create bubble chart. Color by handedness
+        myChart.addSeries(["name",'weight','avg', "handedness" ], dimple.plot.bubble);
           
-          //create legend
-          var myLegend = myChart.addLegend(178,40,410,60, [myChart]);
+        //create legend
+        var myLegend = myChart.addLegend(178,40,410,60, [myChart]);
 
-          // create story for animation
-          var story = myChart.setStoryboard("handedness", onTick);
+        // create story for animation
+        var story = myChart.setStoryboard("handedness", onTick);
           
-          // set frame duration. 
-          story.frameDuration = frame;
+        // set frame duration. 
+        story.frameDuration = frame;
           
-          // render chart
-          myChart.draw();
+        // render chart
+        myChart.draw();
           
-          // style color legned and add legend description
-          myLegend.shapes.selectAll("text").style("font-size", "11px");
-          svg.selectAll("legend_text")
-                  .data(["Right Handed Batters(R)\n", "Left Handed Batters(L)\n", "Both Handed Batters(B)"])
-                  .enter()
-                  .append("text")
-                  .attr("x", 460)
-                  .attr("y", function (d, i) { return 11.5 + i * 12; })
-                  .style("font-family", "sans-serif")
-                  .style("font-size", "10px")
-                  .style("color", "Black")
-                  .text(function (d) { return d; }); 
+        // style color legned and add legend description
+        myLegend.shapes.selectAll("text").style("font-size", "11px");
+        svg.selectAll("legend_text")
+           .data(["Right Handed Batters(R)\n", "Left Handed Batters(L)\n", "Both Handed Batters(B)"])
+           .enter()
+           .append("text")
+           .attr("x", 460)
+           .attr("y", function (d, i) { return 11.5 + i * 12; })
+           .style("font-family", "sans-serif")
+           .style("font-size", "10px")
+           .style("color", "Black")
+           .text(function (d) { return d; }); 
 
 
-          // orphan legend to not respond to graph updates. 
-          myChart.legends = [];
+        // orphan legend to not respond to graph updates. 
+        myChart.legends = [];
 
           
 
-          //click event function for side chart
+        //click event function for side chart
          
-         function onClick(e){
-         	story.pauseAnimation();
+        function onClick(e){
+        	story.pauseAnimation();
+         	
          	// check if clicked bar is the current
-         	if (e.yValue===story.getFrameValue()){
+        	if (e.yValue===story.getFrameValue()){
+         	
          		// if yes, start animation
          		story.startAnimation();
          	} else {
-         		// else paush animation and go to clicked bar's frame. 
+         		// else pause animation and go to clicked bar's frame. 
          		story.goToFrame(e.yValue);
          		story.pauseAnimation();
          	}
          }
 
          // On tick of the main charts storyboard
-         function onTick(e){
+        function onTick(e){
          	
          	if(!firstTick){
-         		//debugger;
+         
          		//change indicator color as animation progresses over each frame. 
          		s.shapes.transition()
          				.duration(frame /2)
@@ -201,11 +205,7 @@
          	
          	firstTick = false;
          }   
-           
-
-
-
-
+          
         };
       </script>
   </head>
