@@ -34,7 +34,7 @@
 		var defaultColor = indicator.defaultColors[0]
 		var indicatorColor = indicator.defaultColors[2];
 
-		var frame = 5000;
+		var frame = 3000;
 
 		var firstTick = true;
 
@@ -43,15 +43,40 @@
 
 		//Add handedness along the y axis
 		var y = indicator.addCategoryAxis('y', "handedness")
+		y.addOrderRule(['B', 'L', 'R']);
 
 		// use handedness scale for bar size
 		var x = indicator.addMeasureAxis('x', "name");
+		
 		x.hidden = true;
 		
 		// Add the bars to the indicator and add event handlers
         var s = indicator.addSeries(null, dimple.plot.bar);
         s.addEventHandler("click", onClick);
        
+
+        function calc_HR_avg(data,filter_col,filter_val){
+        	
+        	var filtered_data = dimple.filterData(data, filter_col,filter_val);
+        	var HomeRuns = []
+        	filtered_data.map(function(d) {
+        		temp = +d.HR
+        		HomeRuns.push(temp);
+        	});
+
+        		
+        	var total = 0;
+        	for (var i = 0; i< HomeRuns.length;i++){
+        		total = total + HomeRuns[i];
+        	}
+        	debugger;
+        	var avg = total/HomeRuns.length
+        	return avg;
+        }
+
+        var left_HR_avg = calc_HR_avg(data,'handedness','L');
+        var right_HR_avg = calc_HR_avg(data,'handedness','R');
+        var both_HR_avg = calc_HR_avg(data,'handedness','B');
        
         //debugger;
         indicator.draw();
@@ -116,7 +141,7 @@
           myChart.addSeries(["name",'weight','avg', "handedness" ], dimple.plot.bubble);
           
           //create legend
-          var myLegend = myChart.addLegend(460,40,410,60);
+          var myLegend = myChart.addLegend(178,40,410,60, [myChart]);
 
           // create story for animation
           var story = myChart.setStoryboard("handedness", onTick);
@@ -175,8 +200,6 @@
          	}
          	
          	firstTick = false;
-         	console.log(e);
-
          }   
            
 
